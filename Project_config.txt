@@ -1,0 +1,33 @@
+fake_news_detector/
+├── 📁 config/
+│   ├── __init__.py
+│   ├── settings.py          # API keys & configuration
+│   └── database.py          # Database models & setup
+├── 📁 models/
+│   ├── __init__.py
+│   ├── news_classifier.py   # RoBERTa model implementation
+│   └── confidence_analyzer.py # Confidence scoring logic
+├── 📁 services/
+│   ├── __init__.py
+│   ├── news_api_service.py  # NewsAPI integration
+│   └── perplexity_service.py # Perplexity API integration
+├── 📁 pages/
+│   ├── __init__.py
+│   ├── fake_news_detector.py # Main detection portal
+│   ├── current_news.py      # Current news display
+│   ├── feedback.py          # Feedback system
+│   ├── admin_dashboard.py   # Admin interface
+│   └── contact.py           # Contact information
+├── 📁 utils/
+│   ├── __init__.py
+│   ├── auth.py             # Authentication utilities
+│   ├── database_utils.py   # Database operations
+│   └── preprocessing.py    # Text preprocessing
+├── 📁 static/
+│   └── styles.css          # Additional CSS styles
+├── app.py                  # Main Streamlit application
+├── requirements.txt        # Python dependencies
+├── .env.example           # Environment variables template
+├── credentials.yml        # Authentication config
+├── README.md              # Project documentation
+└── setup.py               # Installation script

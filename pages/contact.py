@@ -1,24 +1,25 @@
 import streamlit as st
 
+
 def show_contact():
     """Display contact information"""
-    
+
     st.markdown("## 📞 Contact Us")
-    st.markdown("Get in touch with our team for support, questions, or collaboration opportunities.")
-    
+    st.markdown(
+        "Get in touch with our team for support, questions, or collaboration opportunities."
+    )
+
     col1, col2 = st.columns([2, 1])
-    
+
     with col1:
         st.markdown("### 👨‍💻 Developer Information")
-        
+
         # You can edit this section with your information
         st.markdown("""
-        **Name:** [Your Name Here]  
-        **Email:** [your.email@example.com]  
-        **LinkedIn:** [Your LinkedIn Profile]  
-        **GitHub:** [Your GitHub Profile]  
-        **Phone:** [Your Phone Number]  
-        **Location:** [Your Location]
+        **Name:** Prabhjot Singh  
+        **Email:** prabhjot96439@gmail.com  
+        **Name:** Rushil Nijhawan  
+        **Email:** RJ001@gmail.com 
         
         ---
         
@@ -51,53 +52,34 @@ def show_contact():
         - Request new features
         - Get help with setup
         
-        **For Business Inquiries:**
-        - Licensing opportunities
-        - Custom implementations
-        - Partnership discussions
         """)
-    
+
     with col2:
         st.markdown("### 📊 Project Stats")
-        
+
         # Project statistics
         st.info("""
-        **🎯 Accuracy Rate:** 85%+  
         **📰 Sources:** 100+ Global  
         **🌍 Languages:** English  
         **⚡ Response Time:** <10 seconds  
         **🔄 Updates:** Real-time  
         """)
-        
+
         st.markdown("### 🛠️ Quick Actions")
-        
+
         if st.button("📧 Send Email", type="primary"):
-            st.markdown("**Email:** [your.email@example.com]")
-        
+            st.markdown("**Email:** prabhjot96439@gmail.com")
+
         if st.button("🐛 Report Bug"):
             st.markdown("Please use the Feedback page to report any bugs or issues.")
-        
+
         if st.button("💡 Suggest Feature"):
-            st.markdown("We'd love to hear your feature suggestions! Use the Feedback page.")
-        
+            st.markdown(
+                "We'd love to hear your feature suggestions! Use the Feedback page."
+            )
+
         st.markdown("### 🔗 Useful Links")
-        
+
         st.markdown("""
-        - [📖 Documentation](#)
-        - [🔧 API Reference](#)
-        - [📊 System Status](#)
-        - [🆘 Help Center](#)
-        - [📝 Privacy Policy](#)
-        - [⚖️ Terms of Service](#)
-        """)
-        
-        st.markdown("### 🌟 Acknowledgments")
-        
-        st.markdown("""
-        **Special thanks to:**
-        - NewsAPI for news data
-        - Perplexity AI for analysis
-        - Hugging Face for models
-        - Streamlit for the framework
-        - The open-source community
+        - [🔧 API Reference](https://docs.perplexity.ai/api-reference/chat-completions)
         """)

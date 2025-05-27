@@ -14,7 +14,50 @@ class NewsAPIService:
     def __init__(self):
         self.api_key = "5857f31b267648b88056c8dc2663c998"
         self.base_url = "https://newsapi.org/v2"
-    
+    def fetch_top_headlines(self, country='us', category=None, page_size=100):
+        
+        if not self.api_key or self.api_key == "your_api_key_here":
+            st.warning("NewsAPI key not configured. Using mock data.")
+            return self._get_mock_articles()
+        
+        try:
+            url = f"{self.base_url}/top-headlines"
+            
+            params = {
+                'country': country,
+                'apiKey': self.api_key,
+                'pageSize': min(page_size, 100)
+            }
+            
+            if category:
+                params['category'] = category
+            
+            st.info(f"🔍 Fetching {category or 'general'} headlines from {country.upper()}")
+            
+            response = requests.get(url, params=params, timeout=15)
+            response.raise_for_status()
+            
+            data = response.json()
+            
+            if data['status'] == 'ok':
+                articles = data.get('articles', [])
+                
+                # Add relevance scores for consistency
+                for article in articles:
+                    article['relevance_score'] = 0.9
+                    article['similarity_score'] = 0.9
+                    article['score'] = 0.9
+                
+                st.success(f"✅ Fetched {len(articles)} headlines")
+                return articles
+            else:
+                st.error(f"NewsAPI Error: {data.get('message', 'Unknown error')}")
+                return self._get_mock_articles()
+                
+        except Exception as e:
+            st.error(f"Error fetching headlines: {str(e)}")
+            return self._get_mock_articles()
+
     def extract_keywords(self, text):
         """Extract keywords from input text for better search"""
         # Remove special characters and convert to lowercase
@@ -287,21 +330,7 @@ class NewsAPIService:
         
         return np.mean(recency_scores) if recency_scores else 0.5
     
-    def _get_mock_articles(self):
-        """Return mock articles when API is not available"""
-        return [
-            {
-                'title': 'Sample Related News Article',
-                'description': 'This is a mock article for demonstration purposes.',
-                'source': {'name': 'Mock News'},
-                'publishedAt': datetime.now().isoformat(),
-                'url': 'https://example.com',
-                'relevance_score': 0.8,
-                'similarity_score': 0.7
-            }
-        ]
 
-# Singleton instance
 _news_service = None
 
 def get_news_service():

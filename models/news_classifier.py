@@ -14,7 +14,7 @@ class RoBERTaNewsClassifier:
     
     @st.cache_resource
     def load_model(_self):
-        """Load RoBERTa model and tokenizer"""
+        
         try:
             _self.tokenizer = AutoTokenizer.from_pretrained(_self.model_name)
             _self.model = AutoModelForSequenceClassification.from_pretrained(_self.model_name)
@@ -30,19 +30,15 @@ class RoBERTaNewsClassifier:
         if not self.model or not self.tokenizer:
             return None, 0.0
         
-        # Handle None or empty input
         if not text or not isinstance(text, str):
             return "unknown", 0.0
         
         try:
-            # Preprocess text
             processed_text = preprocess_text(text)
             
-            # Check if processed text is empty
             if not processed_text or not processed_text.strip():
                 return "unknown", 0.0
             
-            # Tokenize
             inputs = self.tokenizer(
                 processed_text, 
                 return_tensors="pt", 
@@ -63,16 +59,14 @@ class RoBERTaNewsClassifier:
             predicted_class = torch.argmax(predictions, dim=-1).item()
             confidence = torch.max(predictions).item()
             
-            # Map to fake/real based on sentiment (adjust as needed)
-            # For sentiment models: 0=negative, 1=neutral, 2=positive
-            # We'll map positive sentiment to "real" and negative to "fake"
-            if predicted_class == 2:  # Positive sentiment
+            
+            if predicted_class == 2:  
                 label = "real"
-            elif predicted_class == 0:  # Negative sentiment
+            elif predicted_class == 0:  
                 label = "fake"
             else:  # Neutral
                 label = "uncertain"
-                confidence = confidence * 0.7  # Lower confidence for neutral
+                confidence = confidence * 0.7  
             
             return label, confidence
             

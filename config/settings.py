@@ -83,4 +83,3 @@ TRUSTED_GLOBAL_SOURCES = [
 
 # Application Settings
 DEBUG = os.getenv("DEBUG", "False").lower() == "true"
-SECRET_KEY = os.getenv("SECRET_KEY", "fake_news_detector_secret_key")

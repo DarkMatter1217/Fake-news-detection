@@ -151,7 +151,26 @@ def show_login_flow():
     ):
         show_role_selection()
     else:
-        show_login_form()
+        if st.session_state.selected_role=="contact":
+            show_contact_page()
+        else:
+            show_login_form()
+
+def show_contact_page():
+    """Show contact page without login"""
+    
+    st.markdown('<h1 class="main-header">🔍 Fake News Detector</h1>', unsafe_allow_html=True)
+    
+    try:
+        from pages.contact import show_contact
+        show_contact()
+    except ImportError:
+        st.error("Contact module not available")
+    
+    def go_back_contact():
+        st.session_state.selected_role = None
+    
+    st.button("🔙 Back to Role Selection", key="back_from_contact", on_click=go_back_contact)
 
 
 def show_role_selection():
@@ -176,7 +195,7 @@ def show_role_selection():
         # Role selection
         role = st.selectbox(
             "Choose your role:",
-            ["Select Role", "👤 User", "👨‍💼 Admin", "💬 Feedback"],
+            ["Select Role", "👤 User", "👨‍💼 Admin", "💬 Feedback","📞 Contact Us"],
             key="role_selector",
         )
 
@@ -187,6 +206,8 @@ def show_role_selection():
                 st.session_state.selected_role = "admin"
             elif role == "💬 Feedback (No Login)":
                 st.session_state.selected_role = "feedback"
+            elif role== "📞 Contact Us":
+                st.session_state.selected_role = "contact"
 
         if role != "Select Role":
             st.button("🚀 Continue", key="continue_btn", on_click=set_role)
@@ -199,6 +220,9 @@ def show_login_form():
 
     if role == "feedback":
         show_feedback_page()
+        return
+    elif role == "contact":
+        show_contact_page()
         return
 
     # Show login form for user or admin

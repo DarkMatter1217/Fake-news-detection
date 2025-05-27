@@ -17,7 +17,6 @@ class ConfidenceAnalyzer:
             relevance_score = article.get('relevance_score', 0)
             similarity_score = article.get('similarity_score', 0)
             
-            # Create enhanced article info
             enhanced_article = {
                 'title': article.get('title', ''),
                 'description': article.get('description', ''),
@@ -30,19 +29,15 @@ class ConfidenceAnalyzer:
             
             relevant_articles.append(enhanced_article)
         
-        # Sort by relevance score
         relevant_articles.sort(key=lambda x: x.get('score', 0), reverse=True)
         
         # Calculate overall confidence
         if relevant_articles:
-            # Base confidence on top articles
             top_articles = relevant_articles[:20]  # Consider top 20
             avg_score = np.mean([a.get('score', 0) for a in top_articles])
             
-            # Adjust confidence based on number of relevant articles
             article_count_factor = min(len([a for a in top_articles if a.get('score', 0) > 0.5]) / 10, 1.0)
             
-            # Calculate final confidence
             confidence = (avg_score * 0.7) + (article_count_factor * 0.3)
         else:
             confidence = 0.1
@@ -50,7 +45,6 @@ class ConfidenceAnalyzer:
         return confidence, relevant_articles
     
     def get_final_prediction(self, confidence_score):
-        """Get final prediction based on confidence score"""
         
         if confidence_score >= 0.7:
             return "True", confidence_score

@@ -22,5 +22,3 @@ fake_news_detector/
 ├── requirements.txt        # Python dependencies
 ├── .env.example           # Environment variables template
 ├── credentials.yml        # Authentication config
-├── README.md              # Project documentation
-└── setup.py               # Installation script

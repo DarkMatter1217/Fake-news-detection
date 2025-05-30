@@ -3,13 +3,11 @@ import sys
 import os
 import time
 
-# Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from utils.auth import setup_authenticator, check_authentication, is_admin, logout_user
 from config.database import get_database_engine
 
-# Page configuration
 st.set_page_config(
     page_title="Fake News Detector",
     page_icon="🔍",
@@ -17,10 +15,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Initialize database
 get_database_engine()
 
-# Enhanced CSS
 st.markdown(
     """
 <style>
@@ -114,11 +110,8 @@ st.markdown(
 
 
 def main():
-    """Main application function"""
 
-    # Only clear authentication on first load, not every time
     if "app_started" not in st.session_state:
-        # Clear only authentication, keep other session state
         auth_keys = ["authentication_status", "name", "username"]
         for key in auth_keys:
             if key in st.session_state:
@@ -127,22 +120,18 @@ def main():
         st.session_state["app_started"] = True
         st.session_state["authentication_status"] = None
 
-    # Check if user is already logged in
     is_authenticated, name, username = check_authentication()
 
     if is_authenticated:
-        # User is logged in, show dashboard
         if is_admin():
             show_admin_dashboard()
         else:
             show_user_dashboard()
     else:
-        # User not logged in, show login flow
         show_login_flow()
 
 
 def show_login_flow():
-    """Show the login flow: role selection → credentials"""
 
     # Check if role is selected
     if (
@@ -157,7 +146,6 @@ def show_login_flow():
             show_login_form()
 
 def show_contact_page():
-    """Show contact page without login"""
     
     st.markdown('<h1 class="main-header">🔍 Fake News Detector</h1>', unsafe_allow_html=True)
     
@@ -174,7 +162,6 @@ def show_contact_page():
 
 
 def show_role_selection():
-    """Show role selection dropdown"""
 
     st.markdown(
         '<h1 class="main-header">🔍 Fake News Detector</h1>', unsafe_allow_html=True
